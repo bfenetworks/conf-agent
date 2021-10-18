@@ -1,0 +1,51 @@
+[Logger]
+LogDir      = "./log/"
+LogName     = "conf_gent"
+LogLevel    = "DEBUG"
+RotateWhen  = "MIDNIGHT"
+BackupCount = 2
+Format      = "[%D %T] [%L] [%S] %M"
+StdOut      = true
+
+[Basic]
+BFECluster              = "ALB-test-02"
+BFEConfDir              = "/home/work/bfe/conf"
+BFEMonitorPort          = 8421
+BFEReloadTimeoutMs      = 1500
+
+ReloadIntervalMs        = 5000
+
+ConfServer              = "http://127.0.0.1:8183"
+ConfTaskHeaders         = {"Authorization" = "Session bS9YlAKPFmtSdIp8_yvJ"}
+ConfTaskTimeoutMs       = 1500
+
+ExtraFileServer         = "http://127.0.0.1:8183/inner-api/v1/configs/extra_files/"
+ExtraFileTaskHeaders    = {"Authorization" = "Session bS9YlAKPFmtSdIp8_yvJ"}
+ExtraFileTaskTimeoutMs  = 1500
+
+
+# reloader for server_data_config files, detail see https://www.bfe-networks.net/en_us/configuration/server_data_conf/host_rule.data/
+[Reloaders.server_data_conf]
+CopyFiles       = ["cluster_conf.data", "host_rule.data", "name_conf.data", "route_rule.data", "vip_rule.data"]
+[[Reloaders.server_data_conf.MultiKeyFileTasks]]
+ConfAPI         = "/inner-api/v1/configs/tls_conf/server_data_conf"
+Key2ConfFile    = {"HostTable" = "host_rule.data", "RouteTable" = "route_rule.data", "ClusterConf" = "cluster_conf.data"}
+
+# # reloader for cluster_conf files, detail see https://www.bfe-networks.net/en_us/configuration/cluster_conf/gslb.data/
+[Reloaders.cluster_conf]
+BFEReloadAPI    = "/reload/gslb_data_conf"
+CopyFiles       = ["cluster_table.data", "gslb.data"]
+[[Reloaders.cluster_conf.NormalFileTasks]]
+ConfAPI         = "/inner-api/v1/configs/gslb_data/cluster_table"
+ConfFileName    = "cluster_table.data"
+[[Reloaders.cluster_conf.NormalFileTasks]]
+ConfAPI         = "/inner-api/v1/configs/gslb_data/gslb"
+ConfFileName    = "gslb.data"
+
+# # reloader for tls_conf files, detail see https://www.bfe-networks.net/en_us/configuration/tls_conf/server_cert_conf.data/
+[Reloaders.tls_conf]
+CopyFiles      = ["client_ca", "client_crl", "server_cert_conf.data", "session_ticket_key.data", "tls_rule_conf.data"]
+[[Reloaders.tls_conf.ExtraFileTasks]]
+ConfAPI             = "/inner-api/v1/configs/protocol/server_cert_conf"
+ConfFileName        = "server_cert_conf.data"
+ExtraFileJSONPaths  = ["$.Config.CertConf.*.ServerCertFile", "$.Config.CertConf.*.ServerKeyFile"]
