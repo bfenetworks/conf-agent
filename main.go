@@ -23,6 +23,7 @@ import (
 	"github.com/baidu/conf-agent/agent"
 	"github.com/baidu/conf-agent/config"
 	"github.com/baidu/conf-agent/xlog"
+	"github.com/baidu/conf-agent/version"
 )
 
 var (
@@ -30,10 +31,6 @@ var (
 	showVer  *bool   = flag.Bool("v", false, "to show version")
 	confDir  *string = flag.String("c", "./conf/", "API configure dir")
 	confFile *string = flag.String("cf", "conf-agent.toml", "API configure file")
-)
-
-const (
-	version = "_VERSION_"
 )
 
 func main() {
@@ -44,7 +41,7 @@ func main() {
 		return
 	}
 	if *showVer {
-		fmt.Printf("version %s\n", version)
+		fmt.Printf("version %s\n", version.Version)
 		return
 	}
 
