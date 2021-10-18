@@ -12,7 +12,7 @@ conf-agent 从 api-server 获取最新的配置并触发bfe热加载。
 ## 3. 配置说明
 在api-server有对应导出接口的前提下，conf-agent通过配置能够支持所有的module的配置拉取和热加载。
 
-配置详见[配置详情](./config.md)
+配置详见[配置详情](/docds/zh_cn/config.md)
 
 ## 4. 部署和启动
 和 bfe同机部署
@@ -20,7 +20,9 @@ conf-agent 从 api-server 获取最新的配置并触发bfe热加载。
 启动命令为:
 
 ```
-./conf-agent -c ../conf/ -cf conf-agent.toml
+./conf-agent
+
+# 定制参数 ./conf-gent -h 查看
 ```
 
 ## 5. 实现原理
