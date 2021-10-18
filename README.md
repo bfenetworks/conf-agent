@@ -26,7 +26,7 @@ conf-agent 从 api-server 获取最新的配置并触发bfe热加载。
 ```
 
 ## 5. 实现原理
-详见[实现原理](./implementation.md)
+详见[实现原理](./docs/zh_cn/implementation.md)
 
 
 ## 关于BFE
