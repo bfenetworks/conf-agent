@@ -5,7 +5,7 @@ conf-agent 从 api-server 获取最新的配置并触发bfe热加载。
 
 ## 获取方式
 获取 `conf-agent` 工具。获取 `conf-agent` 有多种方式：
-- 在 [relase](https://github.com/bfenetworks/conf-agent/releases) 页面下载对应平台的可执行文件
+- 在 [releases](https://github.com/bfenetworks/conf-agent/releases) 页面下载对应平台的可执行文件
 - 通过 `go get` 工具本地编译
 - 下载本仓库，执行 `make` （需要go开发环境）
 
