@@ -1,2 +1,5 @@
 conf-agent
+dist
 output
+
+dist/
