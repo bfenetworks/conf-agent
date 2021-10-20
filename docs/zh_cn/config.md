@@ -28,10 +28,10 @@
 | BFEReloadTimeoutMs      | int | BFE reload 超时设置 | N | 1500 |  |
 | ReloadIntervalMs             | int | 拉取时间间隔 | N | 10000 |  |
 | ConfServer              | string | APIServer服务器，用来拉取配置 | Y | - |  |
-| ConfTaskHeaders        | map\<string\>string  | 静态文件请求Header | N | - |  |
+| ConfTaskHeaders        | map\<string\>string  | 配置请求Header, Api Server 当前会对请求鉴权，需要设置 Authorization 头， [通过Dashboard获取Token](https://github.com/bfenetworks/dashboard/blob/develop/docs/zh-cn/user-guide/system-view/user-management.md#token%E7%AE%A1%E7%90%86) | N | - |  |
 | ConfTaskTimeoutMs      | int | 配置拉取超时 | Y | 2500 |  |
 | ExtraFileServer         | string | 静态文件服务器，用来拉取静态文件 | Y | - |  |
-| ExtraFileTaskHeaders   | map\<string\>string  | 静态文件请求Header | N | - |  |
+| ExtraFileTaskHeaders   | map\<string\>string  | 静态文件请求Header, Api Server 当前会对请求鉴权，需要设置 Authorization 头， [通过Dashboard获取Token](https://github.com/bfenetworks/dashboard/blob/develop/docs/zh-cn/user-guide/system-view/user-management.md#token%E7%AE%A1%E7%90%86) | N | - |  |
 | ExtraFileTaskTimeoutMs | int | 静态文件拉取超时 | Y | 2500 |  |
 
 ## 3 Reloaders配置

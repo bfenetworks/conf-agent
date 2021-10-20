@@ -1,14 +1,14 @@
 [Logger]
 LogDir      = "./log/"
 LogName     = "conf_gent"
-LogLevel    = "DEBUG"
+LogLevel    = "INFO"
 RotateWhen  = "MIDNIGHT"
 BackupCount = 2
 Format      = "[%D %T] [%L] [%S] %M"
-StdOut      = true
+StdOut      = false
 
 [Basic]
-BFECluster              = "ALB-test-02"
+BFECluster              = "{BFECluster}"
 BFEConfDir              = "/home/work/bfe/conf"
 BFEMonitorPort          = 8421
 BFEReloadTimeoutMs      = 1500
@@ -16,11 +16,13 @@ BFEReloadTimeoutMs      = 1500
 ReloadIntervalMs        = 5000
 
 ConfServer              = "http://127.0.0.1:8183"
-ConfTaskHeaders         = {"Authorization" = "Session bS9YlAKPFmtSdIp8_yvJ"}
+# Token 获取参考 https://github.com/bfenetworks/dashboard/blob/develop/docs/zh-cn/user-guide/system-view/user-management.md#token%E7%AE%A1%E7%90%86
+ConfTaskHeaders         = {"Authorization" = "Session {Token}"}
 ConfTaskTimeoutMs       = 1500
 
 ExtraFileServer         = "http://127.0.0.1:8183/inner-api/v1/configs/extra_files/"
-ExtraFileTaskHeaders    = {"Authorization" = "Session bS9YlAKPFmtSdIp8_yvJ"}
+# Token 获取参考 https://github.com/bfenetworks/dashboard/blob/develop/docs/zh-cn/user-guide/system-view/user-management.md#token%E7%AE%A1%E7%90%86
+ExtraFileTaskHeaders    = {"Authorization" = "Session {Token}"}
 ExtraFileTaskTimeoutMs  = 1500
 
 

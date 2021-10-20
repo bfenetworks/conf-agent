@@ -75,16 +75,19 @@ func (r *Reloader) Start() {
 }
 
 func (r *Reloader) reload(ctx context.Context) {
+	xlog.Default.Info(xlog.InfoLogFormat(ctx, "reload begin"))
+
 	// fetch newer data file
 	fileList, err := r.prober.Probe(ctx)
 	if err != nil {
 		xlog.Default.Error(xlog.ErrLogFormat(ctx, "probe", err))
 		return
 	}
+	xlog.Default.Info(xlog.InfoLogFormat(ctx, "probe succ"))
 
 	// no newer data file, exit
 	if len(fileList) == 0 {
-		xlog.Default.Info(xlog.InfoLogFormat(ctx, "exit", "without_update"))
+		xlog.Default.Info(xlog.InfoLogFormat(ctx, "reload succ", "without_update"))
 		return
 	}
 
@@ -100,20 +103,25 @@ func (r *Reloader) reload(ctx context.Context) {
 	// store all newer data file
 	err = r.fileStore.StoreFile2TmpDir(ctx, version, files)
 	if err != nil {
+		xlog.Default.Error(xlog.ErrLogFormat(ctx, "StoreFile2TmpDir fail", err))
 		return
 	}
+	xlog.Default.Info(xlog.InfoLogFormat(ctx, "StoreFile2TmpDir succ"))
 
 	// trigger bfe reload
 	err = r.trigger.TriggerBFEReload(ctx, version)
 	if err != nil {
+		xlog.Default.Error(xlog.ErrLogFormat(ctx, "TriggerBFEReload fail", err))
 		return
 	}
+	xlog.Default.Info(xlog.InfoLogFormat(ctx, "TriggerBFEReload succ"))
 
 	// replace old config by newest, if fail, it's ok
 	err = r.fileStore.UpdateDefaultConfDir(ctx, version)
 	if err != nil {
-		xlog.Default.Info(xlog.ErrLogFormat(ctx, "UpdateDefaultConfDir", err))
+		xlog.Default.Error(xlog.ErrLogFormat(ctx, "UpdateDefaultConfDir fail", err))
 	}
+	xlog.Default.Info(xlog.InfoLogFormat(ctx, "UpdateDefaultConfDir succ"))
 
-	xlog.Default.Info(xlog.InfoLogFormat(ctx, "exit", "update"))
+	xlog.Default.Info(xlog.InfoLogFormat(ctx, "reload succ", "update"))
 }
