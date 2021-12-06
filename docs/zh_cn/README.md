@@ -4,7 +4,7 @@
 conf-agent 从 api-server 获取最新的配置并触发bfe热加载。
 
 ## 获取和部署
-查看 [api-server部署之conf-gent部署](https://github.com/bfenetworks/api-server/blob/develop/docs/zh_cn/deploy.md#conf-agent-%E9%83%A8%E7%BD%B2)
+查看 [api-server部署之conf-gent部署](https://github.com/bfenetworks/api-server/blob/develop/docs/zh_cn/deploy.md#confagent%E9%83%A8%E7%BD%B2)
 
 ## 实现原理
 详见[实现原理](./implementation.md)
