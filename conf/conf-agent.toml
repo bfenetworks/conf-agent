@@ -1,6 +1,6 @@
 [Logger]
 LogDir      = "./log/"
-LogName     = "conf_gent"
+LogName     = "conf_agent"
 LogLevel    = "INFO"
 RotateWhen  = "MIDNIGHT"
 BackupCount = 2
