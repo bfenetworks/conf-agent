@@ -23,6 +23,7 @@ GOMOD   := $(GO) mod
 GOBUILD := $(GO) build
 GOTEST  := $(GO) test -gcflags="-N -l"
 GOPKGS  := $$($(GO) list ./...| grep -vE "vendor")
+LICENSEEYE   := license-eye
 
 # test cover files
 COVPROF := $(HOMEDIR)/covprof.out  # coverage profile
@@ -57,6 +58,18 @@ package-bin:
 	cp -rf  conf 	$(OUTDIR)/
 	cp -rf  docs 	$(OUTDIR)/
 	mv conf-agent  	$(OUTDIR)/
+
+# make license-eye-install
+license-eye-install:
+	$(GO) install github.com/apache/skywalking-eyes/cmd/license-eye@latest
+
+# make license-check, check code file's license declaration
+license-check: license-eye-install
+	$(LICENSEEYE) header check
+
+# make license-fix, fix code file's license declaration
+license-fix: license-eye-install
+	$(LICENSEEYE) header fix
 
 # make clean
 clean:
